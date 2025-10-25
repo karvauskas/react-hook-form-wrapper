@@ -1,0 +1,55 @@
+{
+    "name": "react-hook-form-wrapper",
+    "version": "0.0.1",
+    "description": "react hook form wrapper",
+    "type": "module",
+    "main": "./dist/index.js",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        },
+        "./fields": {
+            "types": "./dist/fields/index.d.ts",
+            "default": "./dist/fields/index.js"
+        }
+    },
+    "scripts": {
+        "build": "tsdown",
+        "dev": "vite"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/karvauskas/react-hook-form-wrapper.git"
+    },
+    "keywords": [
+        "react",
+        "hook",
+        "form",
+        "wrapper"
+    ],
+    "author": "Tomas Karvauskas",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/karvauskas/react-hook-form-wrapper/issues"
+    },
+    "homepage": "https://github.com/karvauskas/react-hook-form-wrapper#readme",
+    "peerDependencies": {
+        "@hookform/resolvers": "^5.2.2",
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0",
+        "react-hook-form": "^7.65.0",
+        "react-select": "^5.10.2",
+        "zod": "^4.1.12"
+    },
+    "devDependencies": {
+        "@types/react": "^19.2.2",
+        "@types/react-dom": "^19.2.2",
+        "@vitejs/plugin-react": "^5.0.4",
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0",
+        "tsdown": "^0.15.7",
+        "typescript": "^5.9.3",
+        "vite": "^7.1.10"
+    }
+}

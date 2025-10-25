@@ -1,0 +1,12 @@
+fieldset.form-root-fieldset {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.field-control {
+    width: 100%;
+}
+.field-control > label {
+    display: block;
+}
