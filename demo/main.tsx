@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from 'react-dom/client';
 import { Form, Submit } from "react-hook-form-wrapper";
-import { TextField, HiddenField, NativeSelectField, ReactSelectField, DatepickerField } from "react-hook-form-wrapper/fields";
+import { TextField, HiddenField, NativeSelectField, ReactSelectField, DatepickerField, TextareaField } from "react-hook-form-wrapper/fields";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,7 +20,7 @@ const App = () => {
 
     return (
         <Form form={form} action="/">
-            <TextField type="text" id="abc" name="username" label="username" />
+            <TextField type="text" id="abc" name="username" label="username" required fieldControl={{fieldClassName: 'aa', fieldControlInvalidClassName: 'bb'}}/>
             <div className="element">
                 <div>
                     <div>
@@ -33,9 +33,9 @@ const App = () => {
                 <option value="a">aa</option>
             </NativeSelectField>
 
-            <ReactSelectField name="react-selectas" label="React select" isMulti={true} options={[]}/>
+            <ReactSelectField name="react-selectas" label="React select" isMulti={true} options={[]} />
 
-            <TextField name="textas" label="" />
+            <TextareaField name="textas" label="aaa" />
             <HiddenField name="ss" />
 
             <TextField name="person.firstname.other" label="person.firstname" />

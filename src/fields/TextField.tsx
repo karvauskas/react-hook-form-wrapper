@@ -1,19 +1,19 @@
 import { ComponentProps } from "react";
 import { useFormContext } from "react-hook-form";
-import { FieldControl, FieldControlProps, useFieldError } from "../FieldControl";
+import { BaseFieldControlProps, FieldControl, useFieldError } from "../FieldControl";
 
-interface InputProps extends FieldControlProps, Omit<ComponentProps<'input'>, 'name'> {
+interface InputProps extends Omit<ComponentProps<'input'>, 'name'>, BaseFieldControlProps {
     name: string;
-}
+};
 
-export const TextField = ({ name, type, ...rest }: InputProps) => {
+export const TextField = ({ name, type, label, id, fieldControl, ...rest }: InputProps) => {
     const { register } = useFormContext();
     const error = useFieldError(name);
 
     return (
-        <FieldControl error={error} {...rest}>
+        <FieldControl<'input'> {...{error, label, id, ...fieldControl}}>
             {(props) => 
-                <input type={type || "text"} {...register(name)} {...props} />
+                <input type={type || "text"} {...register(name)} {...rest} {...props} />
             }
         </FieldControl>
     );

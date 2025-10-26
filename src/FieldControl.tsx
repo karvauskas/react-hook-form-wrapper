@@ -1,13 +1,23 @@
 import { ComponentProps, ElementType, ReactNode, useId } from "react";
 import { Path, FieldError, FieldValues, useFormState } from "react-hook-form";
+import classnames from "./utilities/classnames";
 
-export interface FieldControlProps {
+export interface BaseFieldControlProps {
     id?: string,
     label?: string;
     required?: boolean;
+    fieldControl?: FieldControlElementProps;
 };
 
-interface InternalFieldControlProps<P extends ElementType = 'input'> extends FieldControlProps {
+interface FieldControlElementProps {
+    fieldControlClassName?: string;
+    fieldControlInvalidClassName?: string;
+    fieldClassName?: string;
+    fieldValidClassName?: string;
+    fieldInvalidClassName?: string;
+};
+
+interface FieldControlProps<P extends ElementType = 'input'> extends Omit<BaseFieldControlProps, 'fieldControl'>, FieldControlElementProps {
     error: FieldError | undefined;
     children: (props: ComponentProps<P>) => ReactNode;
 };
@@ -17,19 +27,33 @@ interface ErrorMessagesProps extends ComponentProps<'div'>{
 }
 
 export const FieldControl = <P extends ElementType = 'input'>({
-    children, error, label, required, ...rest
-}: InternalFieldControlProps<P>) => {
+    children, 
+    error, 
+    id,
+    label, 
+    required, 
+    //
+    fieldControlClassName = 'field-control',
+    fieldControlInvalidClassName = 'has-errors',
+    fieldClassName = 'field',
+    fieldValidClassName = 'is-valid',
+    fieldInvalidClassName = 'is-invalid'
+}: FieldControlProps<P>) => {
     const { isSubmitted } = useFormState();
 
-    const id = rest?.id || useId();
+    console.log(label);
+
+    const identifier = id || useId();
     const props = {
-        ...rest,
-        id
+        id: identifier,
+        className: classnames(
+            fieldClassName
+        )
     } as ComponentProps<P>;
 
     return (
-        <div className="field-control">
-            {label && <label htmlFor={id}>{label}</label>}
+        <div className={classnames(fieldControlClassName, {required: required, [fieldControlInvalidClassName]: !!error})}>
+            {label && <label htmlFor={identifier}>{label}</label>}
             {children(props)}
             <ErrorMessages error={error}/>
         </div>

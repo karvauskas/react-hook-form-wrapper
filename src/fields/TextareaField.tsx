@@ -1,18 +1,19 @@
 import { ComponentProps } from "react";
 import { useFormContext } from "react-hook-form";
-import { FieldControl, FieldControlProps, useFieldError } from "../FieldControl";
+import { BaseFieldControlProps, FieldControl, useFieldError } from "../FieldControl";
 
-interface TextareaProps extends FieldControlProps, Omit<ComponentProps<'textarea'>, 'name'> {
+interface TextareaProps extends Omit<ComponentProps<'textarea'>, 'name'>, BaseFieldControlProps {
     name: string;
 }
 
-export const TextareaField = ({ name, ...rest }: TextareaProps) => {
+export const TextareaField = ({ name, label, id, fieldControl, ...rest }: TextareaProps) => {
     const { register } = useFormContext();
     const error = useFieldError(name);
 
     return (
-        <FieldControl<'textarea'> error={error} {...rest}>
-            {(props) => <textarea {...register(name)} {...props}></textarea>}
+        <FieldControl<'textarea'> {...{error, label, id, ...fieldControl}}>
+            {(props) => 
+                <textarea {...register(name)} {...rest} {...props}></textarea>}
         </FieldControl>
     );
 };

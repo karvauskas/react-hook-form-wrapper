@@ -1,17 +1,16 @@
-import React from "react";
 import { Controller } from "react-hook-form";
 import Select, { Props } from "react-select";
-import { FieldControl, FieldControlProps, useFieldError } from "../FieldControl";
+import { BaseFieldControlProps, FieldControl, useFieldError } from "../FieldControl";
 
-interface ReactSelectProps extends FieldControlProps, Props {
+interface ReactSelectProps extends Props, BaseFieldControlProps {
     name: string;
 };
 
-export const ReactSelectField = ({ name, options, ...rest }: ReactSelectProps) => {
+export const ReactSelectField = ({ name, label, id, options, fieldControl, ...rest }: ReactSelectProps) => {
     const error = useFieldError(name);
 
     return (
-        <FieldControl<typeof Select> error={error} {...rest}>
+        <FieldControl<typeof Select> {...{error, label, id, ...fieldControl}}>
             {(props) => (
                 <Controller
                     name={name}
@@ -25,6 +24,7 @@ export const ReactSelectField = ({ name, options, ...rest }: ReactSelectProps) =
                                 className="react-select-container"
                                 classNamePrefix="react-select"
                                 isClearable
+                                {...rest}
                                 {...{...props, id: undefined}}
                             />
                         )
