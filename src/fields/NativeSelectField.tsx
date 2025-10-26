@@ -1,8 +1,8 @@
 import { ComponentProps } from "react";
 import { useFormContext } from "react-hook-form";
-import { FieldControl, FormControlProps, useFieldError } from "../FieldControl";
+import { FieldControl, FieldControlProps, useFieldError } from "../FieldControl";
 
-interface SelectProps extends FormControlProps, ComponentProps<'select'> {
+interface SelectProps extends FieldControlProps, Omit<ComponentProps<'select'>, 'name'> {
     name: string;
 };
 

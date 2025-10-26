@@ -1,9 +1,9 @@
 import React from "react";
 import { Controller } from "react-hook-form";
 import Select, { Props } from "react-select";
-import { FieldControl, FormControlProps, useFieldError } from "../FieldControl";
+import { FieldControl, FieldControlProps, useFieldError } from "../FieldControl";
 
-interface ReactSelectProps extends FormControlProps, Props {
+interface ReactSelectProps extends FieldControlProps, Props {
     name: string;
 };
 
@@ -11,7 +11,7 @@ export const ReactSelectField = ({ name, options, ...rest }: ReactSelectProps) =
     const error = useFieldError(name);
 
     return (
-        <FieldControl<Select> error={error} {...rest}>
+        <FieldControl<typeof Select> error={error} {...rest}>
             {(props) => (
                 <Controller
                     name={name}

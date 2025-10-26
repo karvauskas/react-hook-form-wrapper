@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from 'react-dom/client';
 import { Form, Submit } from "react-hook-form-wrapper";
-import { TextField, HiddenField, NativeSelectField, ReactSelectField } from "react-hook-form-wrapper/fields";
+import { TextField, HiddenField, NativeSelectField, ReactSelectField, DatepickerField } from "react-hook-form-wrapper/fields";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,12 +9,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const schema = z.object({
     username: z.email(),
     "other-field": z.coerce.number().min(18),
-    textas: z.iso.date(),
+    datepicker: z.coerce.date(),
 });
 
 const App = () => {
     const form = useForm({
-        defaultValues: { username: 'abc' },
+        defaultValues: { username: 'abc', datepicker: '2021-01-01' },
         resolver: zodResolver(schema)
     });
 
@@ -40,6 +40,8 @@ const App = () => {
 
             <TextField name="person.firstname.other" label="person.firstname" />
             <TextField name="person.lastname" label="person.lastname" />
+
+            <DatepickerField name="datepicker" label="Datepicker" />
 
             <Submit label="Saugoti" />
         </Form>

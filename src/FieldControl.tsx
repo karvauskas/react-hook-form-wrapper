@@ -1,13 +1,13 @@
 import { ComponentProps, ElementType, ReactNode, useId } from "react";
 import { Path, FieldError, FieldValues, useFormState } from "react-hook-form";
 
-export interface FormControlProps {
+export interface FieldControlProps {
     id?: string,
     label?: string;
     required?: boolean;
 };
 
-interface InternalFormControlProps<P extends ElementType = 'input'> extends FormControlProps {
+interface InternalFieldControlProps<P extends ElementType = 'input'> extends FieldControlProps {
     error: FieldError | undefined;
     children: (props: ComponentProps<P>) => ReactNode;
 };
@@ -18,7 +18,7 @@ interface ErrorMessagesProps extends ComponentProps<'div'>{
 
 export const FieldControl = <P extends ElementType = 'input'>({
     children, error, label, required, ...rest
-}: InternalFormControlProps<P>) => {
+}: InternalFieldControlProps<P>) => {
     const { isSubmitted } = useFormState();
 
     const id = rest?.id || useId();

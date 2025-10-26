@@ -1,8 +1,8 @@
 import { ComponentProps } from "react";
 import { useFormContext } from "react-hook-form";
-import { FieldControl, FormControlProps, useFieldError } from "../FieldControl";
+import { FieldControl, FieldControlProps, useFieldError } from "../FieldControl";
 
-interface TextareaProps extends ComponentProps<'textarea'>, FormControlProps {
+interface TextareaProps extends FieldControlProps, Omit<ComponentProps<'textarea'>, 'name'> {
     name: string;
 }
 
