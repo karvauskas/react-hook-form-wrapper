@@ -1,6 +1,7 @@
-export { TextField } from "./TextField";
-export { TextareaField } from "./TextareaField";
-export { HiddenField } from "./HiddenField";
-export { NativeSelectField } from "./NativeSelectField";
-export { ReactSelectField } from "./ReactSelectField";
-export { DatepickerField } from "./DatepickerField";
+export {FieldInput} from "./FieldInput";
+export {FieldTextarea} from "./FieldTextarea";
+export {FieldNativeSelect} from "./FieldNativeSelect";
+export {FieldReactSelect} from "./FieldReactSelect";
+export {FieldDatepicker} from "./FieldDatepicker";
+export {FieldHidden} from "./FieldHidden";
+export {Submit} from "./Submit";

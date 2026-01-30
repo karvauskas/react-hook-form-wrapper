@@ -1,78 +1,59 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { ComponentProps } from "react";
-import {
-    FormProvider,
-    FieldValues,
-    UseFormReturn,
-    SubmitHandler,
-    useFormState,
-    FieldError
-} from "react-hook-form";
+import { FieldValues, FormProvider, SubmitHandler, useForm, UseFormProps, UseFormReturn, useFormState } from "react-hook-form";
+import z from "zod";
 
 type httpMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';
 
-interface FormProps<T extends FieldValues>
-    extends Partial<Omit<ComponentProps<'form'>, 'onSubmit' | 'method'>> {
-    form: UseFormReturn<T>;
-    action: string;
-    disabled?: boolean;
-    method?: httpMethod;
-    onSubmit?: SubmitHandler<T>;
+interface FormProps<T extends FieldValues> 
+extends Omit<ComponentProps<'form'>, 'action' | 'method' | 'onSubmit'> {
+    form: UseFormReturn<T>,
+    action?: string,
+    method?: httpMethod,
+    onSubmit?: SubmitHandler<T>
 };
 
 const onFormSubmit = <T extends FieldValues>(
-    form: UseFormReturn<T>,
     action: string,
-    method: httpMethod,
+    method: httpMethod
 ): SubmitHandler<T> => async (formData) => {
-    await fetch(action || '/', {
+    console.log(formData);
+    await fetch(action, {
         method: method,
         body: JSON.stringify(formData)
     }).then(async (response) => {
         console.log(response);
-        form.setError('root.server', { type: 'server-exception', message: 'root server error' });
-    }).catch(
-        (error) => console.log(error)
-    );
+    });
 };
 
-export const Form = <T extends FieldValues>({
-    form, action, children, disabled, method = 'post', onSubmit, ...props
+export const Form = <T extends FieldValues>({ 
+    form, children, action, method = 'post', onSubmit, ...rest 
 }: FormProps<T>) => {
-    const submitter = onSubmit || onFormSubmit<T>(form, action, method);
+    const submitter = onSubmit || onFormSubmit<T>(action ?? '', method);
 
     return (
         <FormProvider {...form}>
-            <form
-                method={method}
-                action={action}
-                onSubmit={form.handleSubmit(submitter)}
-                noValidate
-                {...props}
+            <form 
+                action={action} 
+                method={method} 
+                onSubmit={form.handleSubmit(submitter)} 
+                noValidate 
+                {...rest}
             >
-                <RootErrorMessages />
-                <fieldset className="form-root-fieldset" disabled={disabled}>{children}</fieldset>
+                <fieldset>
+                    {children}
+                </fieldset>
             </form>
         </FormProvider>
     );
 };
 
-const RootErrorMessages = () => {
-    const { errors } = useFormState({ name: 'root' });
-    const rootErrors = errors?.root as Record<string, FieldError> | undefined;
-
-    if (!rootErrors) {
-        return null;
-    }
-
-    return (
-        <ul>
-            {Object.entries(rootErrors).map(
-                ([key, error]) => (
-                    <li key={key} data-error-type={error?.type}>
-                        {error?.message}
-                    </li>
-                )
-            )}
-        </ul>
-    );
-};
+export function createZodForm<TSchema extends z.ZodType<any, any, any>, TContext = any> (
+    schema: TSchema,
+    options?: Omit<UseFormProps<z.input<TSchema>, TContext>, 'resolver'>
+) {
+    return useForm<z.input<TSchema>, TContext, z.output<TSchema>>({
+        ...options,
+        resolver: zodResolver(schema)
+    } as any) as UseFormReturn<z.input<TSchema>, TContext, z.output<TSchema>>;
+}
