@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ComponentProps } from "react";
-import { FieldValues, FormProvider, SubmitHandler, useForm, UseFormProps, UseFormReturn, useFormState } from "react-hook-form";
+import { FieldValues, FormProvider, SubmitHandler, useForm, UseFormProps, UseFormReturn } from "react-hook-form";
 import z from "zod";
 
 type httpMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';
@@ -17,7 +17,6 @@ const onFormSubmit = <T extends FieldValues>(
     action: string,
     method: httpMethod
 ): SubmitHandler<T> => async (formData) => {
-    console.log(formData);
     await fetch(action, {
         method: method,
         body: JSON.stringify(formData)
