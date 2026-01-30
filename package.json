@@ -4,6 +4,7 @@
     "description": "react hook form wrapper",
     "type": "module",
     "main": "./dist/index.js",
+    "types": "dist/types/index.d.ts",
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
@@ -15,7 +16,8 @@
         }
     },
     "scripts": {
-        "build": "tsdown",
+        "build": "vite build",
+        "build-types": "tsc --project tsconfig.json",
         "dev": "vite"
     },
     "repository": {
