@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from 'react-dom/client';
-import { Form, createZodForm, fetchDefaultValues, withFormLoader } from "react-hook-form-wrapper";
-import { FieldInput, FieldNativeSelect, FieldReactSelect, FieldDatepicker, Submit, FieldTextarea } from "react-hook-form-wrapper/fields";
+import { Form, createZodForm } from "../src/index";
+import { FieldInput, FieldNativeSelect, FieldReactSelect, FieldDatepicker, Submit, FieldTextarea } from "../src/fields";
 import z from "zod";
 
 const selectOptionSchema = z.looseObject({
@@ -59,7 +59,7 @@ const selectOptions = [
     }
 ];
 
-const TestApp = ({ defaultValues }) => {
+const TestApp = ({ defaultValues = {} }) => {
     const form = createZodForm(schema, {
         defaultValues
         //defaultValues: () => fetchDefaultValues('api/test')
@@ -72,9 +72,9 @@ const TestApp = ({ defaultValues }) => {
 
             <FieldInput name="personal.address.street" label="bb" />
 
-            <FieldReactSelect name="selector" label="aaa" options={selectOptions} isClearable isMulti />
+            <FieldReactSelect name="selector" options={selectOptions} label="aaa" isClearable isMulti />
 
-            <FieldDatepicker name="datepicker" />
+            <FieldDatepicker name="datepicker"/>
 
             <FieldTextarea name="long-text" label="long-text" />
 
@@ -84,5 +84,5 @@ const TestApp = ({ defaultValues }) => {
 }
 
 const root = createRoot(document.getElementById("root-test") as HTMLElement);
-const TestForm = withFormLoader(TestApp, '/api/test');
-root.render(<TestForm />);
+//const TestForm = withFormLoader(TestApp, '/api/test');
+root.render(<TestApp />);

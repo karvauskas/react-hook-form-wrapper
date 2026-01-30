@@ -4,7 +4,7 @@ import { withFieldControl } from "../withFieldControl";
 import Select, { Props } from "react-select";
 
 interface FieldProps extends Props {
-    name: string
+    name: string,
 };
 
 export const findSelectOptionsByValues = (values: any, options: Record<string, object>[]) => {
@@ -21,7 +21,7 @@ export const findSelectOptionsByValues = (values: any, options: Record<string, o
     return flat.find(option => option.value === values) || null;
 };
 
-const Field = ({ name, options, ...rest }: FieldProps) => {
+const Field = ({ name, options = [], ...rest }: FieldProps) => {
     const { resetField, formState: { defaultValues } } = useFormContext();
     const initialized = useRef(false);
 

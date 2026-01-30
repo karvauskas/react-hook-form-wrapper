@@ -9,22 +9,22 @@ function Ce() {
   if (Z) return j;
   Z = 1;
   var e = /* @__PURE__ */ Symbol.for("react.transitional.element"), o = /* @__PURE__ */ Symbol.for("react.fragment");
-  function n(t, i, a) {
+  function t(n, a, i) {
     var s = null;
-    if (a !== void 0 && (s = "" + a), i.key !== void 0 && (s = "" + i.key), "key" in i) {
-      a = {};
-      for (var c in i)
-        c !== "key" && (a[c] = i[c]);
-    } else a = i;
-    return i = a.ref, {
+    if (i !== void 0 && (s = "" + i), a.key !== void 0 && (s = "" + a.key), "key" in a) {
+      i = {};
+      for (var c in a)
+        c !== "key" && (i[c] = a[c]);
+    } else i = a;
+    return a = i.ref, {
       $$typeof: e,
-      type: t,
+      type: n,
       key: s,
-      ref: i !== void 0 ? i : null,
-      props: a
+      ref: a !== void 0 ? a : null,
+      props: i
     };
   }
-  return j.Fragment = o, j.jsx = n, j.jsxs = n, j;
+  return j.Fragment = o, j.jsx = t, j.jsxs = t, j;
 }
 var R = {};
 var G;
@@ -36,7 +36,7 @@ function Ie() {
         return r.$$typeof === xe ? null : r.displayName || r.name || null;
       if (typeof r == "string") return r;
       switch (r) {
-        case b:
+        case h:
           return "Fragment";
         case Ee:
           return "Profiler";
@@ -55,9 +55,9 @@ function Ie() {
         ), r.$$typeof) {
           case z:
             return "Portal";
-          case be:
-            return r.displayName || "Context";
           case he:
+            return r.displayName || "Context";
+          case be:
             return (r._context.displayName || "Context") + ".Consumer";
           case _e:
             var u = r.render;
@@ -76,7 +76,7 @@ function Ie() {
     function o(r) {
       return "" + r;
     }
-    function n(r) {
+    function t(r) {
       try {
         o(r);
         var u = !1;
@@ -93,8 +93,8 @@ function Ie() {
         ), o(r);
       }
     }
-    function t(r) {
-      if (r === b) return "<>";
+    function n(r) {
+      if (r === h) return "<>";
       if (typeof r == "object" && r !== null && r.$$typeof === A)
         return "<...>";
       try {
@@ -104,11 +104,11 @@ function Ie() {
         return "<...>";
       }
     }
-    function i() {
+    function a() {
       var r = N.A;
       return r === null ? null : r.getOwner();
     }
-    function a() {
+    function i() {
       return Error("react-stack-top-frame");
     }
     function s(r) {
@@ -200,7 +200,7 @@ React keys must be passed directly to JSX without using spread:
           p
         ), q[p + m] = !0);
       }
-      if (p = null, d !== void 0 && (n(d), p = "" + d), s(u) && (n(u.key), p = "" + u.key), "key" in u) {
+      if (p = null, d !== void 0 && (t(d), p = "" + d), s(u) && (t(u.key), p = "" + u.key), "key" in u) {
         d = {};
         for (var I in u)
           I !== "key" && (d[I] = u[I]);
@@ -212,18 +212,18 @@ React keys must be passed directly to JSX without using spread:
         r,
         p,
         d,
-        i(),
+        a(),
         w,
         C
       );
     }
     function E(r) {
-      h(r) ? r._store && (r._store.validated = 1) : typeof r == "object" && r !== null && r.$$typeof === A && (r._payload.status === "fulfilled" ? h(r._payload.value) && r._payload.value._store && (r._payload.value._store.validated = 1) : r._store && (r._store.validated = 1));
+      b(r) ? r._store && (r._store.validated = 1) : typeof r == "object" && r !== null && r.$$typeof === A && (r._payload.status === "fulfilled" ? b(r._payload.value) && r._payload.value._store && (r._payload.value._store.validated = 1) : r._store && (r._store.validated = 1));
     }
-    function h(r) {
+    function b(r) {
       return typeof r == "object" && r !== null && r.$$typeof === T;
     }
-    var _ = Pe, T = /* @__PURE__ */ Symbol.for("react.transitional.element"), z = /* @__PURE__ */ Symbol.for("react.portal"), b = /* @__PURE__ */ Symbol.for("react.fragment"), ye = /* @__PURE__ */ Symbol.for("react.strict_mode"), Ee = /* @__PURE__ */ Symbol.for("react.profiler"), he = /* @__PURE__ */ Symbol.for("react.consumer"), be = /* @__PURE__ */ Symbol.for("react.context"), _e = /* @__PURE__ */ Symbol.for("react.forward_ref"), ge = /* @__PURE__ */ Symbol.for("react.suspense"), je = /* @__PURE__ */ Symbol.for("react.suspense_list"), Re = /* @__PURE__ */ Symbol.for("react.memo"), A = /* @__PURE__ */ Symbol.for("react.lazy"), Se = /* @__PURE__ */ Symbol.for("react.activity"), xe = /* @__PURE__ */ Symbol.for("react.client.reference"), N = _.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, Y = Object.prototype.hasOwnProperty, Te = Array.isArray, F = console.createTask ? console.createTask : function() {
+    var _ = Pe, T = /* @__PURE__ */ Symbol.for("react.transitional.element"), z = /* @__PURE__ */ Symbol.for("react.portal"), h = /* @__PURE__ */ Symbol.for("react.fragment"), ye = /* @__PURE__ */ Symbol.for("react.strict_mode"), Ee = /* @__PURE__ */ Symbol.for("react.profiler"), be = /* @__PURE__ */ Symbol.for("react.consumer"), he = /* @__PURE__ */ Symbol.for("react.context"), _e = /* @__PURE__ */ Symbol.for("react.forward_ref"), ge = /* @__PURE__ */ Symbol.for("react.suspense"), je = /* @__PURE__ */ Symbol.for("react.suspense_list"), Re = /* @__PURE__ */ Symbol.for("react.memo"), A = /* @__PURE__ */ Symbol.for("react.lazy"), Se = /* @__PURE__ */ Symbol.for("react.activity"), xe = /* @__PURE__ */ Symbol.for("react.client.reference"), N = _.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, Y = Object.prototype.hasOwnProperty, Te = Array.isArray, F = console.createTask ? console.createTask : function() {
       return null;
     };
     _ = {
@@ -233,9 +233,9 @@ React keys must be passed directly to JSX without using spread:
     };
     var M, V = {}, L = _.react_stack_bottom_frame.bind(
       _,
-      a
-    )(), U = F(t(a)), q = {};
-    R.Fragment = b, R.jsx = function(r, u, d) {
+      i
+    )(), U = F(n(i)), q = {};
+    R.Fragment = h, R.jsx = function(r, u, d) {
       var m = 1e4 > N.recentlyCreatedOwnerStacks++;
       return y(
         r,
@@ -243,7 +243,7 @@ React keys must be passed directly to JSX without using spread:
         d,
         !1,
         m ? Error("react-stack-top-frame") : L,
-        m ? F(t(r)) : U
+        m ? F(n(r)) : U
       );
     }, R.jsxs = function(r, u, d) {
       var m = 1e4 > N.recentlyCreatedOwnerStacks++;
@@ -253,7 +253,7 @@ React keys must be passed directly to JSX without using spread:
         d,
         !0,
         m ? Error("react-stack-top-frame") : L,
-        m ? F(t(r)) : U
+        m ? F(n(r)) : U
       );
     };
   })()), R;
@@ -263,8 +263,8 @@ function $e() {
   return B || (B = 1, process.env.NODE_ENV === "production" ? O.exports = Ce() : O.exports = Ie()), O.exports;
 }
 var l = $e();
-function te(e, o, n) {
-  function t(c, f) {
+function te(e, o, t) {
+  function n(c, f) {
     if (c._zod || Object.defineProperty(c, "_zod", {
       value: {
         def: f,
@@ -277,24 +277,24 @@ function te(e, o, n) {
     c._zod.traits.add(e), o(c, f);
     const v = s.prototype, y = Object.keys(v);
     for (let E = 0; E < y.length; E++) {
-      const h = y[E];
-      h in c || (c[h] = v[h].bind(c));
+      const b = y[E];
+      b in c || (c[b] = v[b].bind(c));
     }
   }
-  const i = n?.Parent ?? Object;
-  class a extends i {
+  const a = t?.Parent ?? Object;
+  class i extends a {
   }
-  Object.defineProperty(a, "name", { value: e });
+  Object.defineProperty(i, "name", { value: e });
   function s(c) {
     var f;
-    const v = n?.Parent ? new a() : this;
-    t(v, c), (f = v._zod).deferred ?? (f.deferred = []);
+    const v = t?.Parent ? new i() : this;
+    n(v, c), (f = v._zod).deferred ?? (f.deferred = []);
     for (const y of v._zod.deferred)
       y();
     return v;
   }
-  return Object.defineProperty(s, "init", { value: t }), Object.defineProperty(s, Symbol.hasInstance, {
-    value: (c) => n?.Parent && c instanceof n.Parent ? !0 : c?._zod?.traits?.has(e)
+  return Object.defineProperty(s, "init", { value: n }), Object.defineProperty(s, Symbol.hasInstance, {
+    value: (c) => t?.Parent && c instanceof t.Parent ? !0 : c?._zod?.traits?.has(e)
   }), Object.defineProperty(s, "name", { value: e }), s;
 }
 class De extends Error {
@@ -314,13 +314,13 @@ const oe = "captureStackTrace" in Error ? Error.captureStackTrace : (...e) => {
 function k(e) {
   return typeof e == "string" ? e : e?.message;
 }
-function se(e, o, n) {
-  const t = { ...e, path: e.path ?? [] };
+function se(e, o, t) {
+  const n = { ...e, path: e.path ?? [] };
   if (!e.message) {
-    const i = k(e.inst?._zod.def?.error?.(e)) ?? k(o?.error?.(e)) ?? k(n.customError?.(e)) ?? k(n.localeError?.(e)) ?? "Invalid input";
-    t.message = i;
+    const a = k(e.inst?._zod.def?.error?.(e)) ?? k(o?.error?.(e)) ?? k(t.customError?.(e)) ?? k(t.localeError?.(e)) ?? "Invalid input";
+    n.message = a;
   }
-  return delete t.inst, delete t.continue, o?.reportInput || delete t.input, t;
+  return delete n.inst, delete n.continue, o?.reportInput || delete n.input, n;
 }
 const ae = (e, o) => {
   e.name = "$ZodError", Object.defineProperty(e, "_zod", {
@@ -333,101 +333,101 @@ const ae = (e, o) => {
     value: () => e.message,
     enumerable: !1
   });
-}, Me = te("$ZodError", ae), ie = te("$ZodError", ae, { Parent: Error }), Ve = (e) => (o, n, t, i) => {
-  const a = t ? Object.assign(t, { async: !1 }) : { async: !1 }, s = o._zod.run({ value: n, issues: [] }, a);
+}, Me = te("$ZodError", ae), ie = te("$ZodError", ae, { Parent: Error }), Ve = (e) => (o, t, n, a) => {
+  const i = n ? Object.assign(n, { async: !1 }) : { async: !1 }, s = o._zod.run({ value: t, issues: [] }, i);
   if (s instanceof Promise)
     throw new De();
   if (s.issues.length) {
-    const c = new (i?.Err ?? e)(s.issues.map((f) => se(f, a, ne())));
-    throw oe(c, i?.callee), c;
+    const c = new (a?.Err ?? e)(s.issues.map((f) => se(f, i, ne())));
+    throw oe(c, a?.callee), c;
   }
   return s.value;
-}, Le = /* @__PURE__ */ Ve(ie), Ue = (e) => async (o, n, t, i) => {
-  const a = t ? Object.assign(t, { async: !0 }) : { async: !0 };
-  let s = o._zod.run({ value: n, issues: [] }, a);
+}, Le = /* @__PURE__ */ Ve(ie), Ue = (e) => async (o, t, n, a) => {
+  const i = n ? Object.assign(n, { async: !0 }) : { async: !0 };
+  let s = o._zod.run({ value: t, issues: [] }, i);
   if (s instanceof Promise && (s = await s), s.issues.length) {
-    const c = new (i?.Err ?? e)(s.issues.map((f) => se(f, a, ne())));
-    throw oe(c, i?.callee), c;
+    const c = new (a?.Err ?? e)(s.issues.map((f) => se(f, i, ne())));
+    throw oe(c, a?.callee), c;
   }
   return s.value;
 }, qe = /* @__PURE__ */ Ue(ie);
 function X(e, o) {
   try {
-    var n = e();
-  } catch (t) {
-    return o(t);
+    var t = e();
+  } catch (n) {
+    return o(n);
   }
-  return n && n.then ? n.then(void 0, o) : n;
+  return t && t.then ? t.then(void 0, o) : t;
 }
 function We(e, o) {
-  for (var n = {}; e.length; ) {
-    var t = e[0], i = t.code, a = t.message, s = t.path.join(".");
-    if (!n[s]) if ("unionErrors" in t) {
-      var c = t.unionErrors[0].errors[0];
-      n[s] = { message: c.message, type: c.code };
-    } else n[s] = { message: a, type: i };
-    if ("unionErrors" in t && t.unionErrors.forEach(function(y) {
+  for (var t = {}; e.length; ) {
+    var n = e[0], a = n.code, i = n.message, s = n.path.join(".");
+    if (!t[s]) if ("unionErrors" in n) {
+      var c = n.unionErrors[0].errors[0];
+      t[s] = { message: c.message, type: c.code };
+    } else t[s] = { message: i, type: a };
+    if ("unionErrors" in n && n.unionErrors.forEach(function(y) {
       return y.errors.forEach(function(E) {
         return e.push(E);
       });
     }), o) {
-      var f = n[s].types, v = f && f[t.code];
-      n[s] = ee(s, o, n, i, v ? [].concat(v, t.message) : t.message);
+      var f = t[s].types, v = f && f[n.code];
+      t[s] = ee(s, o, t, a, v ? [].concat(v, n.message) : n.message);
     }
     e.shift();
   }
-  return n;
+  return t;
 }
 function Je(e, o) {
-  for (var n = {}; e.length; ) {
-    var t = e[0], i = t.code, a = t.message, s = t.path.join(".");
-    if (!n[s]) if (t.code === "invalid_union" && t.errors.length > 0) {
-      var c = t.errors[0][0];
-      n[s] = { message: c.message, type: c.code };
-    } else n[s] = { message: a, type: i };
-    if (t.code === "invalid_union" && t.errors.forEach(function(y) {
+  for (var t = {}; e.length; ) {
+    var n = e[0], a = n.code, i = n.message, s = n.path.join(".");
+    if (!t[s]) if (n.code === "invalid_union" && n.errors.length > 0) {
+      var c = n.errors[0][0];
+      t[s] = { message: c.message, type: c.code };
+    } else t[s] = { message: i, type: a };
+    if (n.code === "invalid_union" && n.errors.forEach(function(y) {
       return y.forEach(function(E) {
         return e.push(E);
       });
     }), o) {
-      var f = n[s].types, v = f && f[t.code];
-      n[s] = ee(s, o, n, i, v ? [].concat(v, t.message) : t.message);
+      var f = t[s].types, v = f && f[n.code];
+      t[s] = ee(s, o, t, a, v ? [].concat(v, n.message) : n.message);
     }
     e.shift();
   }
-  return n;
+  return t;
 }
-function Ze(e, o, n) {
-  if (n === void 0 && (n = {}), (function(t) {
-    return "_def" in t && typeof t._def == "object" && "typeName" in t._def;
-  })(e)) return function(t, i, a) {
+function Ze(e, o, t) {
+  if (t === void 0 && (t = {}), (function(n) {
+    return "_def" in n && typeof n._def == "object" && "typeName" in n._def;
+  })(e)) return function(n, a, i) {
     try {
       return Promise.resolve(X(function() {
-        return Promise.resolve(e[n.mode === "sync" ? "parse" : "parseAsync"](t, o)).then(function(s) {
-          return a.shouldUseNativeValidation && W({}, a), { errors: {}, values: n.raw ? Object.assign({}, t) : s };
+        return Promise.resolve(e[t.mode === "sync" ? "parse" : "parseAsync"](n, o)).then(function(s) {
+          return i.shouldUseNativeValidation && W({}, i), { errors: {}, values: t.raw ? Object.assign({}, n) : s };
         });
       }, function(s) {
         if ((function(c) {
           return Array.isArray(c?.issues);
-        })(s)) return { values: {}, errors: J(We(s.errors, !a.shouldUseNativeValidation && a.criteriaMode === "all"), a) };
+        })(s)) return { values: {}, errors: J(We(s.errors, !i.shouldUseNativeValidation && i.criteriaMode === "all"), i) };
         throw s;
       }));
     } catch (s) {
       return Promise.reject(s);
     }
   };
-  if ((function(t) {
-    return "_zod" in t && typeof t._zod == "object";
-  })(e)) return function(t, i, a) {
+  if ((function(n) {
+    return "_zod" in n && typeof n._zod == "object";
+  })(e)) return function(n, a, i) {
     try {
       return Promise.resolve(X(function() {
-        return Promise.resolve((n.mode === "sync" ? Le : qe)(e, t, o)).then(function(s) {
-          return a.shouldUseNativeValidation && W({}, a), { errors: {}, values: n.raw ? Object.assign({}, t) : s };
+        return Promise.resolve((t.mode === "sync" ? Le : qe)(e, n, o)).then(function(s) {
+          return i.shouldUseNativeValidation && W({}, i), { errors: {}, values: t.raw ? Object.assign({}, n) : s };
         });
       }, function(s) {
         if ((function(c) {
           return c instanceof Me;
-        })(s)) return { values: {}, errors: J(Je(s.issues, !a.shouldUseNativeValidation && a.criteriaMode === "all"), a) };
+        })(s)) return { values: {}, errors: J(Je(s.issues, !i.shouldUseNativeValidation && i.criteriaMode === "all"), i) };
         throw s;
       }));
     } catch (s) {
@@ -436,30 +436,25 @@ function Ze(e, o, n) {
   };
   throw new Error("Invalid input: not a Zod schema");
 }
-const Ge = (e, o) => async (n) => {
+const Ge = (e = "", o = "post") => async (t) => {
   await fetch(e, {
     method: o,
-    body: JSON.stringify(n)
-  }).then(async (t) => {
-    console.log(t);
+    body: JSON.stringify(t)
+  }).then(async (n) => {
+    console.log(n);
   });
 }, or = ({
   form: e,
   children: o,
-  action: n,
-  method: t = "post",
-  onSubmit: i,
-  ...a
+  ...t
 }) => {
-  const s = i || Ge(n ?? "", t);
+  const n = t?.onSubmit || Ge(t?.action ?? "", t?.method);
   return /* @__PURE__ */ l.jsx(ke, { ...e, children: /* @__PURE__ */ l.jsx(
     "form",
     {
-      action: n,
-      method: t,
-      onSubmit: e.handleSubmit(s),
       noValidate: !0,
-      ...a,
+      ...t,
+      onSubmit: e.handleSubmit(n),
       children: /* @__PURE__ */ l.jsx("fieldset", { children: o })
     }
   ) });
@@ -472,27 +467,27 @@ function sr(e, o) {
 }
 function ce(...e) {
   const o = [];
-  for (let n = 0; n < e.length; n += 1) {
-    const t = e[n];
-    Array.isArray(t) ? o.push(ce.apply(null, t)) : typeof t == "object" ? Object.entries(t).map(
-      ([i, a]) => a ? o.push(i) : !0
-    ) : typeof t == "string" && o.push(t.trim());
+  for (let t = 0; t < e.length; t += 1) {
+    const n = e[t];
+    Array.isArray(n) ? o.push(ce.apply(null, n)) : typeof n == "object" ? Object.entries(n).map(
+      ([a, i]) => i ? o.push(a) : !0
+    ) : typeof n == "string" && o.push(n.trim());
   }
   return o.join(" ");
 }
 function x(e) {
-  return ({ label: n, ...t }) => {
-    const { isSubmitted: i } = D(), a = Be(t?.name ?? ""), s = t?.id || Oe();
+  return (t) => {
+    const { isSubmitted: n } = D(), a = Be(t?.name ?? ""), i = t?.id || Oe();
     return /* @__PURE__ */ l.jsxs(
       ue,
       {
-        label: n,
-        id: s,
+        label: t?.label,
+        id: i,
         required: t?.required || !1,
         hasError: !!a,
-        isSubmitted: i,
+        isSubmitted: n,
         children: [
-          /* @__PURE__ */ l.jsx(e, { ...t, id: s }),
+          /* @__PURE__ */ l.jsx(e, { ...t, label: null, id: i }),
           a && /* @__PURE__ */ l.jsx(le, { error: a })
         ]
       }
@@ -500,36 +495,36 @@ function x(e) {
   };
 }
 const ue = Q(
-  ({ id: e, label: o, required: n, hasError: t, isSubmitted: i, children: a }) => /* @__PURE__ */ l.jsxs("div", { className: ce("field-control", { required: n, "is-invalid": t, "is-valid": !t && i }), children: [
+  ({ id: e, label: o, required: t, hasError: n, isSubmitted: a, children: i }) => /* @__PURE__ */ l.jsxs("div", { className: ce("field-control", { required: t, "is-invalid": n, "is-valid": !n && a }), children: [
     o && /* @__PURE__ */ l.jsx("label", { htmlFor: e, children: o || null }),
-    a
+    i
   ] })
 );
 ue.displayName = "FieldControl";
 const Be = (e) => {
-  const { errors: o, isSubmitted: n } = D({ name: e });
-  if (!n)
+  const { errors: o, isSubmitted: t } = D({ name: e });
+  if (!t)
     return;
-  const t = e.split(".");
-  let i = o;
-  for (const a of t) i = i?.[a] || void 0;
-  return Array.isArray(i) && (i = i[0]), i;
+  const n = e.split(".");
+  let a = o;
+  for (const i of n) a = a?.[i] || void 0;
+  return Array.isArray(a) && (a = a[0]), a;
 }, le = Q(
   ({ error: e }) => e && /* @__PURE__ */ l.jsx("div", { className: "field-error", "data-error-type": e?.type || null, children: e?.message || null })
 );
 le.displayName = "ErrorMessage";
 class H extends Error {
   code;
-  constructor(o, n, t) {
-    super(o, t), this.code = n, this.name = "ServerError";
+  constructor(o, t, n) {
+    super(o, n), this.code = t, this.name = "ServerError";
   }
 }
 const Xe = ({ templateId: e }) => {
   const o = K(null);
   return $(() => {
-    const n = document.getElementById(e);
-    n && o.current && (o.current.innerHTML = "", o.current.appendChild(
-      n.content.cloneNode(!0)
+    const t = document.getElementById(e);
+    t && o.current && (o.current.innerHTML = "", o.current.appendChild(
+      t.content.cloneNode(!0)
     ));
   }, []), /* @__PURE__ */ l.jsx("div", { ref: o, className: "form-loading-indicator" });
 };
@@ -543,61 +538,61 @@ async function He(e) {
   }).then(async (o) => {
     if (o.status !== 200)
       throw new H("server error", o.status);
-    return await o.json().catch((n) => {
-      throw new H("Bad response from server", 500, { cause: n });
+    return await o.json().catch((t) => {
+      throw new H("Bad response from server", 500, { cause: t });
     });
   });
 }
-const ar = (e, o, n = {}) => {
-  const t = {
+const ar = (e, o, t = {}) => {
+  const n = {
     templateId: "form-loading-indicator",
     retry: !0,
-    ...n
+    ...t
   };
-  return function(a) {
-    const [s, c] = P(!0), [f, v] = P(null), [y, E] = P({}), [h, _] = P(Date.now());
+  return function(i) {
+    const [s, c] = P(!0), [f, v] = P(null), [y, E] = P({}), [b, _] = P(Date.now());
     $(() => {
-      v(null), c(!0), He(o).then((b) => {
-        E(b);
-      }).catch((b) => {
-        v(b);
+      v(null), c(!0), He(o).then((h) => {
+        E(h);
+      }).catch((h) => {
+        v(h);
       }).finally(() => c(!1));
-    }, [h]);
+    }, [b]);
     const T = () => {
       _(Date.now());
     };
-    return s ? /* @__PURE__ */ l.jsx(Xe, { templateId: t?.templateId }) : f ? /* @__PURE__ */ l.jsxs("div", { className: "form-server-errors", children: [
+    return s ? /* @__PURE__ */ l.jsx(Xe, { templateId: n?.templateId }) : f ? /* @__PURE__ */ l.jsxs("div", { className: "form-server-errors", children: [
       f?.message,
-      t?.retry && /* @__PURE__ */ l.jsx("button", { type: "button", onClick: T, children: "Retry" })
-    ] }) : /* @__PURE__ */ l.jsx(e, { ...a, ...y });
+      n?.retry && /* @__PURE__ */ l.jsx("button", { type: "button", onClick: T, children: "Retry" })
+    ] }) : /* @__PURE__ */ l.jsx(e, { ...i, ...y });
   };
-}, fe = ({ name: e, type: o = "text", ...n }) => {
-  const { register: t } = S();
-  return /* @__PURE__ */ l.jsx("input", { type: o, ...t(e), ...n });
+}, fe = ({ name: e, type: o = "text", ...t }) => {
+  const { register: n } = S();
+  return /* @__PURE__ */ l.jsx("input", { type: o, ...n(e), ...t });
 };
 fe.displayName = "FieldInput";
 const ir = x(fe), de = ({ name: e, ...o }) => {
-  const { register: n } = S();
-  return /* @__PURE__ */ l.jsx("textarea", { ...n(e), ...o });
+  const { register: t } = S();
+  return /* @__PURE__ */ l.jsx("textarea", { ...t(e), ...o });
 };
 de.displayName = "FieldTextarea";
-const cr = x(de), me = ({ name: e, children: o, ...n }) => {
-  const { register: t } = S();
-  return /* @__PURE__ */ l.jsx("select", { ...t(e), ...n, children: o });
+const cr = x(de), me = ({ name: e, children: o, ...t }) => {
+  const { register: n } = S();
+  return /* @__PURE__ */ l.jsx("select", { ...n(e), ...t, children: o });
 };
 me.displayName = "FieldNativeSelect";
 const ur = x(me), Qe = (e, o) => {
-  const n = (i) => i.flatMap(
-    (a) => a.options ? n(a.options) : [a]
-  ), t = n(o);
-  return Array.isArray(e) ? t.filter((i) => e.includes(i.value)) || [] : t.find((i) => i.value === e) || null;
-}, pe = ({ name: e, options: o, ...n }) => {
-  const { resetField: t, formState: { defaultValues: i } } = S(), a = K(!1);
+  const t = (a) => a.flatMap(
+    (i) => i.options ? t(i.options) : [i]
+  ), n = t(o);
+  return Array.isArray(e) ? n.filter((a) => e.includes(a.value)) || [] : n.find((a) => a.value === e) || null;
+}, pe = ({ name: e, options: o = [], ...t }) => {
+  const { resetField: n, formState: { defaultValues: a } } = S(), i = K(!1);
   return $(() => {
     const s = e.split(".");
-    let c = i;
+    let c = a;
     for (const f of s) c = c?.[f] || null;
-    t(e, { defaultValue: Qe(c, o) }), a.current = !0;
+    n(e, { defaultValue: Qe(c, o) }), i.current = !0;
   }, []), /* @__PURE__ */ l.jsx(
     re,
     {
@@ -606,10 +601,10 @@ const ur = x(me), Qe = (e, o) => {
         Ne,
         {
           ...s,
-          value: a.current && s.value,
-          inputId: n?.id,
+          value: i.current && s.value,
+          inputId: t?.id,
           options: o || [],
-          ...n,
+          ...t,
           id: void 0
         }
       )
@@ -621,16 +616,23 @@ const lr = x(pe), ve = ({ name: e, ...o }) => /* @__PURE__ */ l.jsx(
   re,
   {
     name: e,
-    render: ({ field: n }) => /* @__PURE__ */ l.jsx(Fe, { ...n, ...o, selected: n.value || null })
+    render: ({ field: t }) => /* @__PURE__ */ l.jsx(
+      Fe,
+      {
+        ...t,
+        selected: t.value ?? null,
+        ...o
+      }
+    )
   }
 );
 ve.displayName = "FieldDatepicker";
 const fr = x(ve), dr = ({ name: e, ...o }) => {
-  const { register: n } = S();
-  return /* @__PURE__ */ l.jsx("input", { type: "hidden", ...n(e), ...o });
+  const { register: t } = S();
+  return /* @__PURE__ */ l.jsx("input", { type: "hidden", ...t(e), ...o });
 }, mr = ({ label: e, ...o }) => {
-  const { isDirty: n, isSubmitting: t } = D();
-  return /* @__PURE__ */ l.jsx("button", { type: "submit", disabled: !n || t, ...o, children: e || "" });
+  const { isDirty: t, isSubmitting: n } = D();
+  return /* @__PURE__ */ l.jsx("button", { type: "submit", disabled: !t || n, ...o, children: e || "" });
 };
 export {
   ue as FieldControl,

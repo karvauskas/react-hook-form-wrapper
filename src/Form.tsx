@@ -8,14 +8,14 @@ type httpMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';
 interface FormProps<T extends FieldValues> 
 extends Omit<ComponentProps<'form'>, 'action' | 'method' | 'onSubmit'> {
     form: UseFormReturn<T>,
-    action?: string,
+    action: string,
     method?: httpMethod,
     onSubmit?: SubmitHandler<T>
 };
 
 const onFormSubmit = <T extends FieldValues>(
-    action: string,
-    method: httpMethod
+    action: string = '',
+    method: httpMethod = 'post'
 ): SubmitHandler<T> => async (formData) => {
     await fetch(action, {
         method: method,
@@ -26,18 +26,16 @@ const onFormSubmit = <T extends FieldValues>(
 };
 
 export const Form = <T extends FieldValues>({ 
-    form, children, action, method = 'post', onSubmit, ...rest 
+    form, children, ...rest 
 }: FormProps<T>) => {
-    const submitter = onSubmit || onFormSubmit<T>(action ?? '', method);
+    const submitter = rest?.onSubmit || onFormSubmit<T>(rest?.action ?? '', rest?.method);
 
     return (
         <FormProvider {...form}>
             <form 
-                action={action} 
-                method={method} 
-                onSubmit={form.handleSubmit(submitter)} 
                 noValidate 
                 {...rest}
+                onSubmit={form.handleSubmit(submitter)} 
             >
                 <fieldset>
                     {children}

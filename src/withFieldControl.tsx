@@ -10,28 +10,28 @@ export interface FieldComponentProps<T extends FieldValues = FieldValues> {
 }
 
 interface FieldControlProps extends Omit<FieldComponentProps, 'name'> {
-    hasError: boolean, 
-    isSubmitted: boolean, 
+    hasError: boolean,
+    isSubmitted: boolean,
     children: React.ReactNode
 }
 
 export function withFieldControl<T extends FieldValues = FieldValues>(Field: ComponentType<T>) {
-    const FieldComponent = ({label, ...rest}: FieldComponentProps & T) => {
+    const FieldComponent = (props: T & FieldComponentProps) => {
         const { isSubmitted } = useFormState<T>();
-        const error = useFieldError(rest?.name ?? '');
+        const error = useFieldError(props?.name ?? '');
         //
-        const id = rest?.id || useId();
+        const id = props?.id || useId();
 
         return (
-            <FieldControl 
-                label={label} 
-                id={id} 
-                required={rest?.required || false}
-                hasError={!!error}  
+            <FieldControl
+                label={props?.label} 
+                id={id}
+                required={props?.required || false}
+                hasError={!!error}
                 isSubmitted={isSubmitted}
             >
-                <Field {...rest as T} id={id}/>
-                {error && <ErrorMessage error={error}/>}
+                <Field {...props as T} label={null} id={id} />
+                {error && <ErrorMessage error={error} />}
             </FieldControl>
         );
     };
@@ -40,9 +40,9 @@ export function withFieldControl<T extends FieldValues = FieldValues>(Field: Com
 }
 
 export const FieldControl = memo(
-    ({id, label, required, hasError, isSubmitted, children}: FieldControlProps) => {
+    ({ id, label, required, hasError, isSubmitted, children }: FieldControlProps) => {
         return (
-            <div className={classnames('field-control', {'required': required, 'is-invalid': hasError, 'is-valid': (!hasError && isSubmitted)})}>
+            <div className={classnames('field-control', { 'required': required, 'is-invalid': hasError, 'is-valid': (!hasError && isSubmitted) })}>
                 {label && <label htmlFor={id}>{label || null}</label>}
                 {children}
             </div>
@@ -71,7 +71,7 @@ const useFieldError = <T extends FieldValues>(name: Path<T>): FieldError | undef
 };
 
 const ErrorMessage = memo(
-    ({error}: {error: FieldError | undefined}) => {
+    ({ error }: { error: FieldError | undefined }) => {
         return error && <div className="field-error" data-error-type={error?.type || null}>{error?.message || null}</div>;
     }
 );

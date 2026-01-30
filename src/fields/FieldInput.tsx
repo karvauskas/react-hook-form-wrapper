@@ -3,7 +3,7 @@ import { useFormContext } from "react-hook-form";
 import { withFieldControl } from "../withFieldControl";
 
 interface FieldProps extends ComponentProps<'input'> {
-    name: string
+    name: string,
 };
 
 const Field = ({ name, type = 'text', ...rest }: FieldProps) => {
