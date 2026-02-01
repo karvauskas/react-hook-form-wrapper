@@ -1,0 +1,178 @@
+:root {
+    --form-field-bg: #fff;
+    --form-field-color: inherit;
+    --form-field-border-radius: 0.25rem;
+    --form-field-padding: 0.5rem;
+    --form-field-border: 1px solid #ccc;
+
+    --form-field-focus-border: 1px solid #8bb9fe;
+    --form-field-focus-shadow: 0 0 5px #8bb9fe;
+}
+input,
+select,
+textarea,
+button {
+    font: inherit;
+    font-size: 1rem;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    outline: none;
+    margin: 0;
+    padding: 0;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+button, select {
+    text-transform: none;
+}
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+    -webkit-background-clip: text !important;
+            background-clip: text !important;
+}
+input:autofill,
+input:autofill:hover,
+input:autofill:focus,
+input:autofill:active {
+    -webkit-background-clip: text !important;
+            background-clip: text !important;
+}
+/*.form-fieldset-main {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}*/
+.form-control {
+    width: 100%;
+    margin-bottom: .5rem;
+
+    & > label {
+        display: block;
+        margin-bottom: .25rem;
+        font-weight: 500;
+        font-size: .875rem;
+    }
+
+    &.required > label:after {
+        content: '*';
+    }
+
+    input, select, textarea {
+        display: block;
+        width: 100%;
+        background: var(--form-field-bg);
+        border: var(--form-field-border);
+        border-radius: var(--form-field-border-radius);
+        padding: var(--form-field-padding);
+        font-size: 1rem;
+        line-height: 1.5;
+
+        &:focus {
+            border: var(--form-field-focus-border);
+            box-shadow: var(--form-field-focus-shadow);
+        }
+    }
+    textarea {
+        resize: vertical;
+    }
+}
+/*-- addons --*/
+.form-control .with-addons {
+    display: flex;
+
+    & > input, & > select, & > textarea {
+        position: relative;
+        z-index: 1;
+
+        &:not(:first-child) {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        &:not(:last-child) {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+    }
+}
+/*-- field states --*/
+.form-control.is-invalid input {
+    border-color: #842029;
+}
+.form-control.is-valid input {
+    border-color: #75b798;
+}
+/*-- feedback --*/
+.invalid-feedback {
+    display: block;
+    width: 100%;
+    font-size: .875rem;
+    color: #842029;
+    margin-top: .125rem;
+}
+/*-- inline group --*/
+.form-inline-group {
+    display: flex;
+    gap: 1rem;
+}
+/*-- addons --*/
+/*.form-control .with-addons {
+    display: flex;
+}
+.form-control .with-addons > input:not(:first-child), 
+.form-control .with-addons > select:not(:first-child) 
+.form-control .with-addons > textarea:not(:first-child) 
+{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-control .with-addons > input:not(:last-child), 
+.form-control .with-addons > select:not(:last-child) 
+.form-control .with-addons > textarea:not(:last-child) 
+{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}*/
+.field-addon {
+    background: #eee;
+    border: var(--form-field-border);
+    align-content: center;
+    padding-inline: 0.5rem;
+    white-space: nowrap;
+    text-shadow: 0 1px 0 #fff;
+}
+.with-addons > .field-addon:first-child {
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+}
+.with-addons > .field-addon:last-child {
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+}
+.react-select__control {
+    display: block;
+    width: 100%;
+    background: var(--form-field-bg);
+    padding: var(--form-field-padding);
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--form-field-color);
+    border: var(--form-field-border);
+    border-radius: var(--form-field-border-radius);
+    box-shadow: var(--forms-control-shadow);
+}
+.react-select__value-container {
+    line-height: 1.5;
+}
+.react-select__menu {
+    background: #fff;
+    border: var(--form-field-border);
+    margin-top: 3px;
+    padding: 4px;
+    border-radius: 4px;
+    box-shadow: var(--forms-control-shadow);
+}
+
+

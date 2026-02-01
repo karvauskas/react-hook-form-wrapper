@@ -7,17 +7,17 @@
     "types": "dist/types/index.d.ts",
     "exports": {
         ".": {
-            "types": "./dist/index.d.ts",
+            "types": "./dist/types/index.d.ts",
             "default": "./dist/index.js"
         },
-        "./fields": {
-            "types": "./dist/fields/index.d.ts",
-            "default": "./dist/fields/index.js"
-        }
+        "./styles.css": "./dist/styles.ts"
     },
     "scripts": {
-        "build": "vite build",
-        "build-types": "tsc --project tsconfig.json",
+        "build:types": "tsc --project tsconfig.json",
+        "build:css": "postcss src/styles/styles.css -o dist/styles.css",
+        "build:css:min": "MINIFY=1 postcss src/styles/styles.css -o dist/styles.min.css",
+        "build:js": "vite build",
+        "build": "npm run build:js && npm run build:types && npm run build:css && npm run build:css:min",
         "dev": "vite serve demo"
     },
     "repository": {
@@ -49,6 +49,11 @@
         "@types/react": "^19.2.10",
         "@types/react-dom": "^19.2.3",
         "@vitejs/plugin-react": "^5.1.2",
+        "autoprefixer": "^10.4.24",
+        "cssnano": "^7.1.2",
+        "postcss": "^8.5.6",
+        "postcss-cli": "^11.0.1",
+        "postcss-import": "^16.1.1",
         "react": "^19.2.4",
         "react-dom": "^19.2.4",
         "tsdown": "^0.15.12",

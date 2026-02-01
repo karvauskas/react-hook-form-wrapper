@@ -11,6 +11,6 @@ interface FieldControlProps extends Omit<FieldComponentProps, 'name'> {
     isSubmitted: boolean;
     children: React.ReactNode;
 }
-export declare function withFieldControl<T extends FieldValues = FieldValues>(Field: ComponentType<T>): (props: T & FieldComponentProps) => import("react/jsx-runtime").JSX.Element;
+export declare function withFieldControl<T extends FieldValues = FieldValues>(Field: ComponentType<T>): (props: T & FieldComponentProps) => import("react/jsx-runtime").JSX.Element | undefined;
 export declare const FieldControl: import("react").MemoExoticComponent<({ id, label, required, hasError, isSubmitted, children }: FieldControlProps) => import("react/jsx-runtime").JSX.Element>;
 export {};

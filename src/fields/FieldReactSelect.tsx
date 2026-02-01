@@ -45,7 +45,10 @@ const Field = ({ name, options = [], ...rest }: FieldProps) => {
                             value={initialized.current && field.value}
                             inputId={rest?.id}
                             options={options || []}
+                            classNamePrefix="react-select"
+                            unstyled
                             {...rest}
+                            className={[(rest?.className || null), "react-select-container"].join(' ')}
                             id={undefined}
                         />
                     );

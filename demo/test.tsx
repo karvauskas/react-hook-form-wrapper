@@ -1,10 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from 'react-dom/client';
-import { Form, createZodForm } from "../src/index";
-import { FieldInput, FieldNativeSelect, FieldReactSelect, FieldDatepicker, Submit, FieldTextarea } from "../src/fields";
+import { Form, createForm, createSchema, fetchDefaultValues, field } from "../src";
+import { FieldInput, FieldNativeSelect, FieldReactSelect, FieldDatepicker, Submit, FieldTextarea } from "../src";
 import z from "zod";
 
-const selectOptionSchema = z.looseObject({
+import "../src/styles/styles.css";                            
+
+/*const selectOptionSchema = z.looseObject({
     value: z.any(),
 });
 
@@ -31,21 +33,18 @@ export const reactSelectMultiSchema = z
     })
     .transform(values =>
         values.map(v => typeof v === 'string' ? v : v.value)
-    );
+    ).default([]);*/
 
-const schema = z.object({
-    firstname: z.string().min(4),
-    lastname: z.coerce.number().min(2),
-    personal: z.object({
-        address: z.object({
-            street: z.string().min(2)
-        })
-    }),
-    /*selector: z.array(
-        z.object({value: z.string()}).transform(v => v?.value || '').or(z.string()) 
-    ).min(1)*/
-    selector: reactSelectMultiSchema
-    //selector: z.object({value: z.string()}, 'required').transform(v => v?.value).or(z.string())
+
+const schema = createSchema({
+    firstname: field.string( z.string().trim().min(3), 'a' ),
+    lastname: field.string(z.string().trim().min(2).optional()),
+    price: field.number(z.number().optional()),
+    personal: {
+        address: {
+            street: field.string(z.string(), 'abc')
+        }
+    }
 });
 
 const selectOptions = [
@@ -60,23 +59,46 @@ const selectOptions = [
 ];
 
 const TestApp = ({ defaultValues = {} }) => {
-    const form = createZodForm(schema, {
-        defaultValues
+    const form = createForm(schema, {
+        defaultValues: {
+            firstname: 'a a'
+        },
+        //defaultValues
         //defaultValues: () => fetchDefaultValues('api/test')
     });
 
     return (
         <Form form={form} action="/">
-            <FieldInput name="firstname" label="a" />
-            <FieldInput name="lastname" label="aa" type="number" />
+            <div className="form-inline-group">
+                <FieldInput name="firstname" label="Firstname" required/>
+                <FieldInput name="lastname" label="Lastname" />
+            </div>
 
-            <FieldInput name="personal.address.street" label="bb" />
+            <FieldInput name="price" label="Kaina" />
 
-            <FieldReactSelect name="selector" options={selectOptions} label="aaa" isClearable isMulti />
+            <FieldInput name="personal.address.street" label="Adresas (gatve)" />
 
-            <FieldDatepicker name="datepicker"/>
+            {/*<FieldNativeSelect name="pasirinkimai" label="Pasirinkimai">
+                <option value="">Pirmas</option>
+                <option value="2">Antras</option>
+            </FieldNativeSelect>
 
-            <FieldTextarea name="long-text" label="long-text" />
+            <FieldReactSelect name="selector" options={selectOptions} label="aaa" isMulti />
+
+            <FieldDatepicker name="datepicker" label="date picker" autoComplete="off"/>
+
+            <FieldTextarea name="longtext" label="long-text" />
+
+            <div className="form-control required">
+                <label htmlFor="_r_0_1">Firstname</label>
+                <div className="with-addons">
+                    <div className="field-addon">item</div>
+                    <div className="field-addon">item</div>
+                    <input required id="_r_0_1" type="text" name="firstname"/>
+                    <div className="field-addon">item kitas</div>
+                    <div className="field-addon">item 2</div>
+                </div>
+            </div>*/}
 
             <Submit label="Submit" />
         </Form>

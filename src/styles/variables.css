@@ -1,0 +1,10 @@
+:root {
+    --form-field-bg: #fff;
+    --form-field-color: inherit;
+    --form-field-border-radius: 0.25rem;
+    --form-field-padding: 0.5rem;
+    --form-field-border: 1px solid #ccc;
+
+    --form-field-focus-border: 1px solid #8bb9fe;
+    --form-field-focus-shadow: 0 0 5px #8bb9fe;
+}

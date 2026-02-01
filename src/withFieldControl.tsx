@@ -17,6 +17,8 @@ interface FieldControlProps extends Omit<FieldComponentProps, 'name'> {
 
 export function withFieldControl<T extends FieldValues = FieldValues>(Field: ComponentType<T>) {
     const FieldComponent = (props: T & FieldComponentProps) => {
+        if (!props?.name) { return; }
+
         const { isSubmitted } = useFormState<T>();
         const error = useFieldError(props?.name ?? '');
         //
@@ -24,7 +26,7 @@ export function withFieldControl<T extends FieldValues = FieldValues>(Field: Com
 
         return (
             <FieldControl
-                label={props?.label} 
+                label={props?.label}
                 id={id}
                 required={props?.required || false}
                 hasError={!!error}
@@ -42,7 +44,7 @@ export function withFieldControl<T extends FieldValues = FieldValues>(Field: Com
 export const FieldControl = memo(
     ({ id, label, required, hasError, isSubmitted, children }: FieldControlProps) => {
         return (
-            <div className={classnames('field-control', { 'required': required, 'is-invalid': hasError, 'is-valid': (!hasError && isSubmitted) })}>
+            <div className={classnames('form-control', { 'required': required, 'is-invalid': hasError, 'is-valid': (!hasError && isSubmitted) })}>
                 {label && <label htmlFor={id}>{label || null}</label>}
                 {children}
             </div>
@@ -72,7 +74,7 @@ const useFieldError = <T extends FieldValues>(name: Path<T>): FieldError | undef
 
 const ErrorMessage = memo(
     ({ error }: { error: FieldError | undefined }) => {
-        return error && <div className="field-error" data-error-type={error?.type || null}>{error?.message || null}</div>;
+        return error && <div className="invalid-feedback" data-error-type={error?.type || null}>{error?.message || null}</div>;
     }
 );
 ErrorMessage.displayName = 'ErrorMessage';
