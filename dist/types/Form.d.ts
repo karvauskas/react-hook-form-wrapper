@@ -19,7 +19,9 @@ interface FieldReturn<T extends z.ZodType = z.ZodType> {
 interface Fields {
     [key: string]: FieldReturn | Fields;
 }
-export declare const Form: <T extends FieldValues>({ form, children, ...rest }: FormProps<T>) => import("react/jsx-runtime").JSX.Element;
+export declare const Form: <T extends FieldValues>({ form, children, disabled, ...rest }: FormProps<T> & {
+    disabled?: boolean;
+}) => import("react/jsx-runtime").JSX.Element;
 export declare function createForm<TSchema extends z.ZodType<any, any, any>, TContext = any>(schema: SchemaReturn, options?: Omit<UseFormProps<z.input<TSchema>, TContext>, 'resolver'>): UseFormReturn<z.input<TSchema>, TContext, z.output<TSchema>>;
 export declare function createSchema(fields: Fields): SchemaReturn;
 export declare const field: {

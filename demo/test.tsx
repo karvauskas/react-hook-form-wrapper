@@ -38,8 +38,8 @@ export const reactSelectMultiSchema = z
 
 const schema = createSchema({
     firstname: field.string( z.string().trim().min(3), 'a' ),
-    lastname: field.string(z.string().trim().min(2).optional()),
-    price: field.number(z.number().optional()),
+    lastname: field.string(z.string().trim().min(2)),
+    price: field.number(z.number()),
     personal: {
         address: {
             street: field.string(z.string(), 'abc')
@@ -74,9 +74,11 @@ const TestApp = ({ defaultValues = {} }) => {
                 <FieldInput name="lastname" label="Lastname" />
             </div>
 
-            <FieldInput name="price" label="Kaina" />
+            <FieldInput name="price" label="Kaina" addons={{prepend: ['abc', 'item'], append: ['price', 'EUR']}}/>
 
             <FieldInput name="personal.address.street" label="Adresas (gatve)" />
+
+            <FieldReactSelect name="selector" options={selectOptions} label="aaa" isMulti />
 
             {/*<FieldNativeSelect name="pasirinkimai" label="Pasirinkimai">
                 <option value="">Pirmas</option>

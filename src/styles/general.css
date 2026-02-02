@@ -24,11 +24,18 @@ input:autofill:active {
     background-clip: text !important;
 }
 
-/*.form-fieldset-main {
+.form-scope {
     border: 0;
     margin: 0;
     padding: 0;
-}*/
+
+    &[disabled], &.disabled, &:disabled {
+        .form-control > .field, 
+        .form-control > .react-select-container {
+            pointer-events: none;
+        }
+    }
+}
 
 .form-control {
     width: 100%;
@@ -45,7 +52,7 @@ input:autofill:active {
         content: '*';
     }
 
-    input, select, textarea {
+    .field {
         display: block;
         width: 100%;
         background: var(--form-field-bg);
@@ -69,7 +76,7 @@ input:autofill:active {
 .form-control .with-addons {
     display: flex;
 
-    & > input, & > select, & > textarea {
+    & > .field {
         position: relative;
         z-index: 1;
 
@@ -82,6 +89,28 @@ input:autofill:active {
             border-bottom-right-radius: 0;
         }
     }
+
+    & .field-addon:first-child {
+        border-top-left-radius: .25rem;
+        border-bottom-left-radius: .25rem;
+        margin-left: 0;
+    }
+    & .field-addon:last-child {
+        border-top-right-radius: .25rem;
+        border-bottom-right-radius: .25rem;
+        margin-right: 0;
+    }
+}
+.field-addon {
+    align-content: center;
+    white-space: nowrap;
+    margin-inline: -1px;
+}
+.field-addon-text {
+    background: #eee;
+    border: var(--form-field-border);
+    padding-inline: 0.5rem;
+    text-shadow: 0 1px 0 #fff;
 }
 
 
@@ -108,39 +137,4 @@ input:autofill:active {
 .form-inline-group {
     display: flex;
     gap: 1rem;
-}
-
-/*-- addons --*/
-/*.form-control .with-addons {
-    display: flex;
-}
-.form-control .with-addons > input:not(:first-child), 
-.form-control .with-addons > select:not(:first-child) 
-.form-control .with-addons > textarea:not(:first-child) 
-{
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
-.form-control .with-addons > input:not(:last-child), 
-.form-control .with-addons > select:not(:last-child) 
-.form-control .with-addons > textarea:not(:last-child) 
-{
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}*/
-.field-addon {
-    background: #eee;
-    border: var(--form-field-border);
-    align-content: center;
-    padding-inline: 0.5rem;
-    white-space: nowrap;
-    text-shadow: 0 1px 0 #fff;
-}
-.with-addons > .field-addon:first-child {
-    border-top-left-radius: .25rem;
-    border-bottom-left-radius: .25rem;
-}
-.with-addons > .field-addon:last-child {
-    border-top-right-radius: .25rem;
-    border-bottom-right-radius: .25rem;
 }

@@ -1,4 +1,4 @@
-import { useId, ComponentType, memo } from "react";
+import { useId, ComponentType, memo, ReactNode } from "react";
 import { FieldError, FieldValues, Path, useFormState } from "react-hook-form";
 import classnames from "./utils/classnames";
 
@@ -6,13 +6,17 @@ export interface FieldComponentProps<T extends FieldValues = FieldValues> {
     name: Path<T>,
     id?: string,
     label?: string,
-    required?: boolean
+    required?: boolean,
+    addons?: {
+        prepend?: ReactNode[],
+        append?: ReactNode[]
+    }
 }
 
 interface FieldControlProps extends Omit<FieldComponentProps, 'name'> {
-    hasError: boolean,
+    error: FieldError | undefined,
     isSubmitted: boolean,
-    children: React.ReactNode
+    children: ReactNode
 }
 
 export function withFieldControl<T extends FieldValues = FieldValues>(Field: ComponentType<T>) {
@@ -23,17 +27,26 @@ export function withFieldControl<T extends FieldValues = FieldValues>(Field: Com
         const error = useFieldError(props?.name ?? '');
         //
         const id = props?.id || useId();
+        const className = [props?.className, 'field'].filter(n => n).join(' ');
+
+        const {label, addons, ...fieldProps} = props;
+
+        console.log(props?.name);
 
         return (
             <FieldControl
-                label={props?.label}
+                label={label}
                 id={id}
                 required={props?.required || false}
-                hasError={!!error}
+                error={error}
                 isSubmitted={isSubmitted}
+                addons={addons}
             >
-                <Field {...props as T} label={null} id={id} />
-                {error && <ErrorMessage error={error} />}
+                <Field 
+                    {...fieldProps as T} id={id} 
+                    className={className}
+                    aria-invalid={!!error ? true : null}
+                />
             </FieldControl>
         );
     };
@@ -42,19 +55,40 @@ export function withFieldControl<T extends FieldValues = FieldValues>(Field: Com
 }
 
 export const FieldControl = memo(
-    ({ id, label, required, hasError, isSubmitted, children }: FieldControlProps) => {
+    ({children, id, label, required, error, isSubmitted, addons }: FieldControlProps) => {
         return (
-            <div className={classnames('form-control', { 'required': required, 'is-invalid': hasError, 'is-valid': (!hasError && isSubmitted) })}>
+            <div className={classnames('form-control', { 'required': required, 'is-invalid': !!error, 'is-valid': (!error && isSubmitted) })}>
                 {label && <label htmlFor={id}>{label || null}</label>}
-                {children}
+                {addons ? <FieldWithAddons addons={addons}>{children}</FieldWithAddons> : children}
+                {error && <ErrorMessage error={error} />}
             </div>
         );
     }
 );
 FieldControl.displayName = 'FieldControl';
 
+const FieldWithAddons = (
+    {children, addons: {prepend, append}}: {children: ReactNode, addons: {prepend?: ReactNode[], append?: ReactNode[]}}
+) => {
+    const renderAddonsComponent = (addons: ReactNode[] = []) => addons.map((addon, i) => {
+        return (
+            <div key={`addon-${i}`} className={classnames('field-addon', {'field-addon-text': typeof addon === 'string'})}>
+                {addon}
+            </div>
+        );
+    });
 
-const useFieldError = <T extends FieldValues>(name: Path<T>): FieldError | undefined => {
+    return (
+        <div className="with-addons">
+            {renderAddonsComponent(prepend)}
+            {children}
+            {renderAddonsComponent(append)}
+        </div>
+    );
+}
+
+
+export const useFieldError = <T extends FieldValues>(name: Path<T>): FieldError | undefined => {
     const { errors, isSubmitted } = useFormState<T>({ name });
 
     if (!isSubmitted) {

@@ -55,8 +55,8 @@ const onFormSubmit = <T extends FieldValues>(
 };
 
 export const Form = <T extends FieldValues>({
-    form, children, ...rest
-}: FormProps<T>) => {
+    form, children, disabled, ...rest
+}: FormProps<T> & {disabled?: boolean}) => {
     const submitter = rest?.onSubmit || onFormSubmit<T>(rest?.action ?? '', rest?.method);
 
     return (
@@ -66,7 +66,7 @@ export const Form = <T extends FieldValues>({
                 {...rest}
                 onSubmit={form.handleSubmit(submitter)}
             >
-                <fieldset className="form-fieldset-main">
+                <fieldset className="form-scope" disabled={disabled}>
                     {children}
                 </fieldset>
             </form>

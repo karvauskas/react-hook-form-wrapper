@@ -34,6 +34,8 @@ const Field = ({ name, options = [], ...rest }: FieldProps) => {
         initialized.current = true;
     }, []);
 
+    const className = rest?.className?.replace('field', '');
+
     return (
         <Controller
             name={name}
@@ -48,7 +50,7 @@ const Field = ({ name, options = [], ...rest }: FieldProps) => {
                             classNamePrefix="react-select"
                             unstyled
                             {...rest}
-                            className={[(rest?.className || null), "react-select-container"].join(' ')}
+                            className={[className, "react-select-container"].join(' ')}
                             id={undefined}
                         />
                     );
