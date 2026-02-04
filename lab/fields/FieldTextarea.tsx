@@ -2,11 +2,7 @@ import { ComponentProps } from "react";
 import { useFormContext } from "react-hook-form";
 import { withFieldControl } from "../withFieldControl";
 
-interface FieldProps extends ComponentProps<'textarea'> {
-    name: string
-};
-
-const Field = ({ name, ...rest }: FieldProps) => {
+const Field = ({ name, ...rest }: {name: string;} & Omit<ComponentProps<'textarea'>, 'name'>) => {
     const { register } = useFormContext();
 
     return (
@@ -14,5 +10,4 @@ const Field = ({ name, ...rest }: FieldProps) => {
     );
 };
 Field.displayName = 'FieldTextarea';
-
 export const FieldTextarea = withFieldControl(Field);

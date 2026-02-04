@@ -1,71 +1,28 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { ComponentProps } from "react";
-import { FieldValues, FormProvider, SubmitHandler, useForm, UseFormProps, UseFormReturn } from "react-hook-form";
-import z from "zod";
+import React, { ComponentProps } from "react";
+import { FieldValues, FormProvider, SubmitHandler, UseFormReturn } from "react-hook-form";
 
-type httpMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';
+type HttpMethod = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH';
 
-interface FormProps<T extends FieldValues>
-    extends Omit<ComponentProps<'form'>, 'action' | 'method' | 'onSubmit'> {
-    form: UseFormReturn<T>,
-    action: string,
-    method?: httpMethod,
-    onSubmit?: SubmitHandler<T>
-};
-
-interface SchemaReturn {
-    schema: z.ZodObject<Record<string, z.ZodType>>,
-    defaultValues: Record<string, any>
-};
-
-interface FieldReturn<T extends z.ZodType = z.ZodType> {
-    schema: T,
-    defaultValue: z.infer<T> | undefined
-};
-
-interface Fields {
-    [key: string]: FieldReturn | Fields;
+interface FormProps<Tin extends FieldValues, Tout extends FieldValues = Tin>
+extends Omit<ComponentProps<'form'>, 'action' | 'method' | 'onSubmit'>
+{
+    form: UseFormReturn<Tin, any, Tout>;
+    action: string;
+    method?: HttpMethod;
+    onSubmit?: SubmitHandler<Tout>;
+    disabled?: boolean;
 }
 
-function merge(defaultValues: Record<string, any>, values?: Record<string, any>): Record<string, any> {
-    if (!values) return {...defaultValues};
-
-    return Object.keys(defaultValues).reduce((acc, key) => {
-        const value = values[key];
-        const defaultValue = defaultValues[key];
-
-        acc[key] = defaultValue && typeof defaultValue === 'object' && !Array.isArray(defaultValue) && value && typeof value === 'object' && !Array.isArray(value)
-            ? merge(defaultValue, value) 
-            : (value !== undefined ? value : defaultValue);
-
-        return acc;
-    }, {} as Record<string, any>);
-}
-
-const onFormSubmit = <T extends FieldValues>(
-    action: string = '',
-    method: httpMethod = 'post'
-): SubmitHandler<T> => async (formData) => {
-    await fetch(action, {
-        method: method,
-        body: JSON.stringify(formData)
-    }).then(async (response) => {
-        console.log(response);
-    });
-};
-
-export const Form = <T extends FieldValues>({
+export const Form = <Tin extends FieldValues, Tout extends FieldValues = Tin>({
     form, children, disabled, ...rest
-}: FormProps<T> & {disabled?: boolean}) => {
-    const submitter = rest?.onSubmit || onFormSubmit<T>(rest?.action ?? '', rest?.method);
+}: FormProps<Tin, Tout>) => {
+    const  submitter = 
+        rest?.onSubmit || 
+        onFormSubmit<Tout>(rest?.action || '', rest?.method);
 
     return (
         <FormProvider {...form}>
-            <form
-                noValidate
-                {...rest}
-                onSubmit={form.handleSubmit(submitter)}
-            >
+            <form noValidate {...rest} onSubmit={form.handleSubmit(submitter)}>
                 <fieldset className="form-scope" disabled={disabled}>
                     {children}
                 </fieldset>
@@ -74,67 +31,14 @@ export const Form = <T extends FieldValues>({
     );
 };
 
-export function createForm<TSchema extends z.ZodType<any, any, any>, TContext = any>(
-    schema: SchemaReturn,
-    options?: Omit<UseFormProps<z.input<TSchema>, TContext>, 'resolver'>
-) {
-    return useForm<z.input<TSchema>, TContext, z.output<TSchema>>({
-        ...options,
-        defaultValues: merge(schema.defaultValues, options?.defaultValues),
-        resolver: zodResolver(schema?.schema)
-    } as any) as UseFormReturn<z.input<TSchema>, TContext, z.output<TSchema>>;
-}
-
-export function createSchema(fields: Fields): SchemaReturn {
-    function isField(value: any): value is FieldReturn<z.ZodType> {
-        return value && "schema" in value && "defaultValue" in value;
-    }
-
-    const parse = (fields: Fields) => {
-        const schema: Record<string, z.ZodType> = {};
-        const defaultValues: Record<string, any> = {};
-
-        for (const key in fields) {
-            const value = fields[key];
-
-            if (isField(value)) {
-                schema[key] = value?.schema;
-                defaultValues[key] = value?.defaultValue;
-            } else {
-                const nested = parse(value as Fields);
-                schema[key] = z.object(nested?.schema);
-                defaultValues[key] = nested?.defaultValues;
-            }
-        }
-
-        return {schema, defaultValues};
-    }
-
-    const {schema, defaultValues} = parse(fields);
-    return { schema: z.object(schema), defaultValues };
+const onFormSubmit = <T extends FieldValues>(
+    action: string,
+    method: HttpMethod = 'POST'
+): SubmitHandler<T> => async (data: T) =>  {
+    await fetch(action, {
+        method: method,
+        body: JSON.stringify(data)
+    }).then(async (response) => {
+        console.log(response);
+    });
 };
-
-export const field = {
-    string: <T extends z.ZodType<string|undefined> = z.ZodString>(
-        schema: T = z.string() as unknown as T, 
-        def: any  = ''
-    )  => {
-        return { schema: z.preprocess(v => v ? String(v) : undefined, schema), defaultValue: def };
-    },
-
-    number: <T extends z.ZodType<number|undefined> = z.ZodNumber>(
-        schema: T = z.number() as unknown as T, 
-        def: any = ''
-    ) => {
-        return { schema: z.preprocess(v => v ? Number(v) : undefined, schema), defaultValue: def };
-    }
-};
-
-z.config({
-    customError: (issue) => {
-        switch (issue.code) {
-            case 'invalid_type': return (issue.input === undefined) ? 'Required' : undefined;
-            default: return undefined;
-        }
-    }
-});

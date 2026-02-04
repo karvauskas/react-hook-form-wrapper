@@ -38,6 +38,7 @@
     "homepage": "https://github.com/karvauskas/react-hook-form-wrapper#readme",
     "peerDependencies": {
         "@hookform/resolvers": "^5.2.2",
+        "lodash": "^4.17.23",
         "react": "^19.2.0",
         "react-datepicker": "^8.10.0",
         "react-dom": "^19.2.0",
@@ -46,6 +47,7 @@
         "zod": "^4.3.6"
     },
     "devDependencies": {
+        "@types/lodash": "^4.17.23",
         "@types/react": "^19.2.10",
         "@types/react-dom": "^19.2.3",
         "@vitejs/plugin-react": "^5.1.2",

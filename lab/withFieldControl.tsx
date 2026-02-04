@@ -3,7 +3,7 @@ import { FieldError, FieldValues, Path, useFormState } from "react-hook-form";
 import classnames from "./utils/classnames";
 
 export interface FieldComponentProps<T extends FieldValues = FieldValues> {
-    name: Path<T>,
+    //name: Path<T>,
     id?: string,
     label?: string,
     required?: boolean,
@@ -19,11 +19,12 @@ interface FieldControlProps extends Omit<FieldComponentProps, 'name'> {
     children: ReactNode
 }
 
-export function withFieldControl<T extends FieldValues = FieldValues>(Field: ComponentType<T>) {
-    const FieldComponent = (props: T & FieldComponentProps) => {
+export function withFieldControl<TProps>(Field: ComponentType<TProps>) {
+    //const FieldComponent = <TFieldValues extends FieldValues>(props: Omit<TProps, 'name'> & { name: Path<TFieldValues> } & FieldComponentProps) => {
+    return <TFieldValues extends FieldValues>(props: Omit<TProps, 'name'> & { name: Path<TFieldValues> }) => {
         if (!props?.name) { return; }
 
-        const { isSubmitted } = useFormState<T>();
+        const { isSubmitted } = useFormState<TFieldValues>();
         const error = useFieldError(props?.name ?? '');
         //
         const id = props?.id || useId();
@@ -42,8 +43,9 @@ export function withFieldControl<T extends FieldValues = FieldValues>(Field: Com
                 isSubmitted={isSubmitted}
                 addons={addons}
             >
-                <Field 
-                    {...fieldProps as T} id={id} 
+                <Field
+                    {...fieldProps as any} id={id}
+                    name="a"
                     className={className}
                     aria-invalid={!!error ? true : null}
                 />
@@ -51,7 +53,7 @@ export function withFieldControl<T extends FieldValues = FieldValues>(Field: Com
         );
     };
 
-    return FieldComponent;
+    //return FieldComponent;
 }
 
 export const FieldControl = memo(

@@ -5,6 +5,7 @@ import { FieldInput, FieldNativeSelect, FieldReactSelect, FieldDatepicker, Submi
 import z from "zod";
 
 import "../src/styles/styles.css";                            
+import { FieldValues, Path } from "react-hook-form";
 
 /*const selectOptionSchema = z.looseObject({
     value: z.any(),
@@ -39,13 +40,28 @@ export const reactSelectMultiSchema = z
 const schema = createSchema({
     firstname: field.string( z.string().trim().min(3), 'a' ),
     lastname: field.string(z.string().trim().min(2)),
-    price: field.number(z.number()),
+    prependice: field.number(z.number()),
     personal: {
         address: {
             street: field.string(z.string(), 'abc')
         }
-    }
+    },
 });
+
+const s = z.object({
+    firstname: z.string()
+});
+
+const Test = () => {
+    type MyFormValues = z.input<typeof schema.schema>;
+
+    const createNameHelper = <T extends FieldValues>() => <P extends Path<T>>(path: P) =>  path;
+    const name = createNameHelper<MyFormValues>();
+    
+    name('a');
+};
+
+Test();
 
 const selectOptions = [
     { label: 'a', value: 'a', item: 'aa' },
@@ -58,23 +74,36 @@ const selectOptions = [
     }
 ];
 
+//const createNameHelper = <T extends FieldValues>() => <P extends Path<T>>(path: P) => ({ name: path });
+
 const TestApp = ({ defaultValues = {} }) => {
+    type MyFormValues = z.infer<typeof schema.schema>;
+
     const form = createForm(schema, {
         defaultValues: {
-            firstname: 'a a'
+            firstname: 'a a',
+            aa: 'aa'
         },
         //defaultValues
         //defaultValues: () => fetchDefaultValues('api/test')
     });
 
+    
+    //const createNameHelper = <T extends FieldValues>() => <P extends Path<T>>(path: P) => path;
+    const createNameHelper = <T extends object>() => <P extends Path<T>>(path: P) =>  path;
+    const name = createNameHelper<MyFormValues>();
+    
+    name('a');
+
+    form.setValue('firstname', 123);
     return (
         <Form form={form} action="/">
             <div className="form-inline-group">
-                <FieldInput name="firstname" label="Firstname" required/>
-                <FieldInput name="lastname" label="Lastname" />
+                <FieldInput name="firstname111" required/>
+                <FieldInput name={name('lastname')} label="Lastname"/>
             </div>
 
-            <FieldInput name="price" label="Kaina" addons={{prepend: ['abc', 'item'], append: ['price', 'EUR']}}/>
+            <FieldInput name="price1" label={"a"} addons={{prepend: ['abc', 'item'], append: ['price', 'EUR']}}/>
 
             <FieldInput name="personal.address.street" label="Adresas (gatve)" />
 

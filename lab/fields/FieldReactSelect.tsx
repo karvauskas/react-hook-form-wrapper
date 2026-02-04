@@ -3,25 +3,7 @@ import { Controller, useFormContext  } from "react-hook-form";
 import { withFieldControl } from "../withFieldControl";
 import Select, { Props } from "react-select";
 
-interface FieldProps extends Props {
-    name: string,
-};
-
-export const findSelectOptionsByValues = (values: any, options: Record<string, object>[]) => {
-    const flatten = (options: Record<string, object>[]): Record<string, object>[] => options.flatMap(
-        option => option.options ? flatten(option.options as Record<string, object>[]) : [option]
-    );
-
-    const flat = flatten(options);
-
-    if (Array.isArray(values)) {
-        return flat.filter(option => values.includes(option.value)) || [];
-    }
-
-    return flat.find(option => option.value === values) || null;
-};
-
-const Field = ({ name, options = [], ...rest }: FieldProps) => {
+const Field = ({ name, options = [], ...rest }: {name:string} & Omit<Props, 'name'>) => {
     const { resetField, formState: { defaultValues } } = useFormContext();
     const initialized = useRef(false);
 
@@ -60,5 +42,18 @@ const Field = ({ name, options = [], ...rest }: FieldProps) => {
     );
 };
 Field.displayName = 'FieldReactSelect';
-
 export const FieldReactSelect = withFieldControl(Field);
+
+export const findSelectOptionsByValues = (values: any, options: Record<string, object>[]) => {
+    const flatten = (options: Record<string, object>[]): Record<string, object>[] => options.flatMap(
+        option => option.options ? flatten(option.options as Record<string, object>[]) : [option]
+    );
+
+    const flat = flatten(options);
+
+    if (Array.isArray(values)) {
+        return flat.filter(option => values.includes(option.value)) || [];
+    }
+
+    return flat.find(option => option.value === values) || null;
+};
