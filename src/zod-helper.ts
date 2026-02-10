@@ -2,18 +2,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Path, useForm, UseFormProps } from "react-hook-form";
 import merge from "lodash/merge";
 import z from "zod";
+import { ComponentProps, ComponentType, useCallback, useMemo } from "react";
 
-type Field<T extends z.ZodType = z.ZodType> = {
-    type: 'field';
+type Specification<T extends z.ZodType = z.ZodType> = {
+    type: 'spec';
     schema: T;
     defaultValue: z.input<T>;
 };
 
 type SchemaShape = {
-    [key: string]: Field | SchemaShape;
+    [key: string]: Specification | SchemaShape;
 };
 
-type ExtractZodSchema<T> = T extends Field<infer U>
+type ExtractZodSchema<T> = T extends Specification<infer U>
     ? U : T extends SchemaShape
     ? z.ZodObject<{ [K in keyof T]: ExtractZodSchema<T[K]> }> : never;
 
@@ -28,7 +29,7 @@ export function createSchema<T extends SchemaShape>(
         for (const key in fields) {
             const field = fields[key];
 
-            if ('type' in field && field.type === 'field') {
+            if ('type' in field && field.type === 'spec') {
                 shape[key] = field.schema;
                 defaults[key] = field.defaultValue;
             } else {
@@ -63,15 +64,19 @@ export const createForm = <T extends z.ZodObject>(
         ),
         resolver: zodResolver(schema.schema)
     }),
-    name: (name: Path<z.input<T>>) => ({ name: name as string })
+    attach: <C extends ComponentType<any> = ComponentType<any>>(
+        name: Path<z.input<T>>, params?: Omit<ComponentProps<C>, 'name'>
+    ) => {
+        return {name: name, ...useMemo(() => (params), [])};
+    },
 });
 
-export const field = {
+export const spec = {
     string: <T extends z.ZodType<any, any, any>>(
         zodSchema: T = z.string() as unknown as T, 
         defaultValue: any = ''
     ) => ({
-        type: 'field' as const,
+        type: 'spec' as const,
         schema: z.preprocess(
             (v) => v ? String(v) : undefined, 
             z.union([z.string(), z.undefined()])
@@ -83,7 +88,7 @@ export const field = {
         zodSchema: T = z.number() as unknown as T,
         defaultValue: any = ''
     ) => ({
-        type: 'field' as const,
+        type: 'spec' as const,
         schema: z.preprocess(
             (v) => v ? Number(v) : undefined, 
             z.union([z.number(), z.undefined()])
@@ -95,7 +100,7 @@ export const field = {
         zodSchema: T, 
         defaultValue: any = undefined
     ) => ({
-        type: 'field' as const,
+        type: 'spec' as const,
         schema: zodSchema,
         defaultValue
     }),

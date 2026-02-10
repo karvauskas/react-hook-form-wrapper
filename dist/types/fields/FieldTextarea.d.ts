@@ -1,6 +1,6 @@
 import { ComponentProps } from "react";
-interface FieldProps extends ComponentProps<'textarea'> {
+interface FieldProps extends Omit<ComponentProps<'textarea'>, 'name'> {
     name: string;
 }
-export declare const FieldTextarea: (props: FieldProps & import("..").FieldComponentProps<import("react-hook-form").FieldValues>) => import("react/jsx-runtime").JSX.Element | undefined;
+export declare const FieldTextarea: <T extends import("react-hook-form").FieldValues = import("react-hook-form").FieldValues>(props: FieldProps & import("../FormControl").FormControlWrapperProps<T>) => import("react").ReactNode;
 export {};

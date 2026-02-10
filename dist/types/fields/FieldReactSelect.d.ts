@@ -1,7 +1,6 @@
 import { Props } from "react-select";
-interface FieldProps extends Props {
+interface FieldProps extends Omit<Props, 'name'> {
     name: string;
 }
-export declare const findSelectOptionsByValues: (values: any, options: Record<string, object>[]) => Record<string, object> | Record<string, object>[] | null;
-export declare const FieldReactSelect: (props: FieldProps & import("..").FieldComponentProps<import("react-hook-form").FieldValues>) => import("react/jsx-runtime").JSX.Element | undefined;
+export declare const FieldReactSelect: <T extends import("react-hook-form").FieldValues = import("react-hook-form").FieldValues>(props: FieldProps & import("../FormControl").FormControlWrapperProps<T>) => import("react").ReactNode;
 export {};

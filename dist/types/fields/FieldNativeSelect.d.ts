@@ -1,6 +1,6 @@
 import { ComponentProps } from "react";
-interface FieldProps extends ComponentProps<'select'> {
+interface FieldProps extends Omit<ComponentProps<'select'>, 'name'> {
     name: string;
 }
-export declare const FieldNativeSelect: (props: FieldProps & import("..").FieldComponentProps<import("react-hook-form").FieldValues>) => import("react/jsx-runtime").JSX.Element | undefined;
+export declare const FieldNativeSelect: <T extends import("react-hook-form").FieldValues = import("react-hook-form").FieldValues>(props: FieldProps & import("../FormControl").FormControlWrapperProps<T>) => import("react").ReactNode;
 export {};

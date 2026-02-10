@@ -3,7 +3,7 @@ import { FieldError, FieldValues, Path, useFormState } from "react-hook-form";
 import classnames from "./utils/classnames";
 
 export interface FieldComponentProps<T extends FieldValues = FieldValues> {
-    //name: Path<T>,
+    name: Path<T>,
     id?: string,
     label?: string,
     required?: boolean,
@@ -44,8 +44,8 @@ export function withFieldControl<TProps>(Field: ComponentType<TProps>) {
                 addons={addons}
             >
                 <Field
-                    {...fieldProps as any} id={id}
-                    name="a"
+                    {...fieldProps as any} 
+                    id={id}
                     className={className}
                     aria-invalid={!!error ? true : null}
                 />
@@ -58,6 +58,7 @@ export function withFieldControl<TProps>(Field: ComponentType<TProps>) {
 
 export const FieldControl = memo(
     ({children, id, label, required, error, isSubmitted, addons }: FieldControlProps) => {
+        console.log('b');
         return (
             <div className={classnames('form-control', { 'required': required, 'is-invalid': !!error, 'is-valid': (!error && isSubmitted) })}>
                 {label && <label htmlFor={id}>{label || null}</label>}
@@ -72,6 +73,7 @@ FieldControl.displayName = 'FieldControl';
 const FieldWithAddons = (
     {children, addons: {prepend, append}}: {children: ReactNode, addons: {prepend?: ReactNode[], append?: ReactNode[]}}
 ) => {
+    console.log('addons');
     const renderAddonsComponent = (addons: ReactNode[] = []) => addons.map((addon, i) => {
         return (
             <div key={`addon-${i}`} className={classnames('field-addon', {'field-addon-text': typeof addon === 'string'})}>

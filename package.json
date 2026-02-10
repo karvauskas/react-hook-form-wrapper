@@ -3,12 +3,17 @@
     "version": "0.0.1",
     "description": "react hook form wrapper",
     "type": "module",
-    "main": "./dist/index.js",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
     "types": "dist/types/index.d.ts",
+    "files": [
+        "dist"
+    ],
     "exports": {
         ".": {
             "types": "./dist/types/index.d.ts",
-            "default": "./dist/index.js"
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
         },
         "./styles.css": "./dist/styles.ts"
     },
@@ -16,7 +21,7 @@
         "build:types": "tsc --project tsconfig.json",
         "build:css": "postcss src/styles/styles.css -o dist/styles.css",
         "build:css:min": "MINIFY=1 postcss src/styles/styles.css -o dist/styles.min.css",
-        "build:js": "vite build",
+        "build:js": "NODE_ENV=production vite build",
         "build": "npm run build:js && npm run build:types && npm run build:css && npm run build:css:min",
         "dev": "vite serve demo"
     },
@@ -47,6 +52,7 @@
         "zod": "^4.3.6"
     },
     "devDependencies": {
+        "@hookform/devtools": "^4.4.0",
         "@types/lodash": "^4.17.23",
         "@types/react": "^19.2.10",
         "@types/react-dom": "^19.2.3",
@@ -58,6 +64,7 @@
         "postcss-import": "^16.1.1",
         "react": "^19.2.4",
         "react-dom": "^19.2.4",
+        "terser": "^5.46.0",
         "tsdown": "^0.15.12",
         "typescript": "^5.9.3",
         "vite": "^7.3.1"

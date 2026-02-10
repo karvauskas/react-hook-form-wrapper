@@ -1,11 +1,13 @@
 import { ComponentProps } from "react";
-import { asFormComponent } from "../asFormComponent";
+import { fieldBind, withFormControl } from "../FormControl";
 
-type FieldProps = Omit<ComponentProps<'input'>, 'name'>;
+interface FieldProps extends Omit<ComponentProps<'input'>, 'name'> {
+    name: string; 
+}
 
-const Field = (props: FieldProps) => (
-    <input type="text" {...props} />
+const Field = ({name, type = 'text', ...rest}: FieldProps) => (
+    <input type={type} {...rest} {...fieldBind(name)}/>
 );
 Field.displayName = 'FieldInput';
 
-export const FieldInput = asFormComponent(Field);
+export const FieldInput = withFormControl(Field);

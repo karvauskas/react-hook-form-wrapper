@@ -5,9 +5,20 @@ import pkg from './package.json';
 export default defineConfig({
     plugins: [react()],
     build: {
+        minify: 'terser',
+        terserOptions: {
+            compress: {
+                drop_console: true, // Išmeta console.log
+                drop_debugger: true,
+                pure_funcs: ['useMemo', 'memo'] // Užuomina, kad šios funkcijos neturi side-effects
+            },
+            format: {
+                comments: false, // Jokių komentarų
+            },
+        },
         rollupOptions: {
             external: [
-                'react', 'react-dom', 'react-hook-form',
+                'react/jsx-runtime', /^lodash.*/, /^\@hookform/,
                 ...Object.keys(pkg.peerDependencies || {})
             ]
         },
